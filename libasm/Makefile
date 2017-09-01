@@ -6,14 +6,15 @@
 #    By: sasiedu <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/08/26 14:48:24 by sasiedu           #+#    #+#              #
-#    Updated: 2017/08/27 10:14:07 by sasiedu          ###   ########.fr        #
+#    Updated: 2017/09/01 11:41:14 by sasiedu          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libftAsm.a
 
 SRC = bzero.s strcat.s isalpha.s isdigit.s isalnum.s isascii.s isprint.s \
-	  toupper.s tolower.s puts.s strlen.s memset.s memcpy.s strdup.s
+	  toupper.s tolower.s puts.s strlen.s memset.s memcpy.s strdup.s \
+	  cat.s
 
 BIN = $(SRC:.s=.o)
 

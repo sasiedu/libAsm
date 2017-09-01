@@ -1,44 +1,48 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    strdup.s                                           :+:      :+:    :+:    #
+#    cat.s                                              :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: sasiedu <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2017/08/27 10:11:04 by sasiedu           #+#    #+#              #
-#    Updated: 2017/09/01 11:30:38 by sasiedu          ###   ########.fr        #
+#    Created: 2017/09/01 11:40:56 by sasiedu           #+#    #+#              #
+#    Updated: 2017/09/01 12:15:16 by sasiedu          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+section	.bss
+	buf	resb 20
+
 section	.text
-	global	_ft_strdup
-	extern	_malloc
-	extern	_ft_strlen
-	extern	_ft_memcpy
+	global	_ft_cat
 	extern	_ft_bzero
+	extern	_ft_puts
 
-_ft_strdup:
+_ft_cat:
 	cmp  rdi, 0
-	jz   no_copy
-	mov  rbx, rdi ;save src str
-	call _ft_strlen
-	cmp  rax, 0
-	jz   no_copy
-	mov  r8, rax ;save strlen
-	mov  rdi, rax
-	call _malloc
-	cmp  rax, 0
-	jz   no_copy
-	mov  rdi, rax
-	mov  rsi, r8
-	call _ft_bzero
-	mov  rsi, rbx
-	mov  rdx, r8
-	call _ft_memcpy
-	jmp  return
+	jl   return
+	mov  r9, rdi
 
-no_copy:
-	mov  rax, 0
+clear:
+	lea  rdi, [rel buf]
+	mov  rsi, 20
+	call _ft_bzero
+
+read:
+	mov  rdi, r9
+	lea  rsi, [rel buf]
+	mov  rdx, 20
+	mov  rax, 0x2000003
+	syscall
+	jc   return
+	cmp  rax, 0
+	jle  return
+	mov  rdi, 1
+	lea  rsi, [rel buf]
+	mov  rdx, rax
+	mov  rax, 0x2000004
+	syscall
+	jmp  read
 
 return:
 	ret

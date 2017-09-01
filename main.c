@@ -6,7 +6,7 @@
 /*   By: sasiedu <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/26 14:47:08 by sasiedu           #+#    #+#             */
-/*   Updated: 2017/08/27 10:10:37 by sasiedu          ###   ########.fr       */
+/*   Updated: 2017/09/01 12:13:24 by sasiedu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	test_strlen();
 void	test_memset();
 void	test_memcpy();
 void	test_strdup();
+void	test_cat();
 
 int		main(void)
 {
@@ -45,6 +46,7 @@ int		main(void)
 	test_memset();
 	test_memcpy();
 	test_strdup();
+	test_cat();
 }
 
 void	test_bzero()
@@ -226,13 +228,28 @@ void	test_memcpy()
 
 void	test_strdup()
 {
+	char	*tmp = strdup("helloWorld");
+
 	puts("**** Testing ft_strdup ****");
 	puts("ft_strdup(NULL)");
 	puts(ft_strdup(NULL));
 	puts("ft_strdup(\"\")");
 	puts(ft_strdup(""));
 	puts("ft_strdup(\"helloWorld\")");
-	puts(ft_strdup("helloWorld"));
-	puts("ft_strdup(\"foo bar\")");
-	puts(ft_strdup("foo bar"));
+	puts(ft_strdup(tmp));
+}
+
+void	test_cat()
+{
+	puts("**** Testing ft_cat ****");
+	puts("ft_cat(-1)");
+	ft_cat(-1);
+
+	int fd  = open("libasm/strdup.s", O_RDONLY);
+	if (fd != -1)
+	{
+		puts("cat on libasm/strdup.s");
+		ft_cat(fd);
+	}
+	ft_cat(0);
 }
